@@ -1,0 +1,26 @@
+type StatusCode = nat16;
+type Method = text;
+type HttpResponse = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   status_code: StatusCode;
+ };
+type HttpRequest = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   method: Method;
+   url: text;
+ };
+type HeaderField = 
+ record {
+   text;
+   text;
+ };
+type BootName = text;
+type BootCanister = principal;
+service : {
+  addToCollection: (BootName, BootCanister) -> ();
+  http_request: (HttpRequest) -> (HttpResponse) query;
+}
