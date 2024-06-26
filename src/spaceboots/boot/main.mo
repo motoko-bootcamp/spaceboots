@@ -1,4 +1,6 @@
 import Http "http";
+import Text "mo:base/Text";
+
 shared ({ caller = creator }) actor class Boot() = this {
 
     public type HttpRequest = Http.Request;
@@ -6,7 +8,7 @@ shared ({ caller = creator }) actor class Boot() = this {
 
     // The owner of the boot.
     var owner : Principal = creator;
-    var name : Text = "Boot";
+    var name : Text = "Ocean spaceboots";
 
     public query func getOwner() : async Principal {
         return owner;
@@ -34,7 +36,12 @@ shared ({ caller = creator }) actor class Boot() = this {
     // Validation of the scan.
 
     public query func http_request() : async HttpResponse {
-        return HttpResponse.Ok();
+        return ({
+            body = Text.encodeUtf8(
+                "Hello, World!"
+            );
+            headers = [("Content-Type", "text/plain")];
+            status_code = 200;
+        });
     };
-
 };

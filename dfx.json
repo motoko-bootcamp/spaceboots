@@ -4,7 +4,7 @@
             "main": "src/spaceboots/board/main.mo",
             "type": "motoko"
         },
-        "spaceboots_boot":{
+        "spaceboots_boots":{
             "main": "src/spaceboots/boot/main.mo",
             "type": "motoko"
         }

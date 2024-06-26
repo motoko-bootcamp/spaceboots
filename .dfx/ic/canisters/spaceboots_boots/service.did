@@ -1,0 +1,13 @@
+type Boot = service {
+  getOwner : () -> (principal) query;
+  http_request : () -> (HttpResponse) query;
+  transfer : () -> () oneway;
+};
+type HeaderField = record { text; text };
+type HttpResponse = record {
+  body : vec nat8;
+  headers : vec HeaderField;
+  status_code : StatusCode;
+};
+type StatusCode = nat16;
+service : Boot
