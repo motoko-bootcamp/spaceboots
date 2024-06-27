@@ -11,35 +11,37 @@ shared ({ caller = creator }) actor class Boot() = this {
     // The owner of the boot.
     var owner : Principal = creator;
     var name : Text = "Ocean spaceboots";
+    var equipped : Bool = false;
 
-    public query func getOwner() : async Principal {
+    public query func reboot_objects_getOwner() : async Principal {
         return owner;
     };
 
-    public func transfer() {
-        // Implementation of transfer logic
+    public query func reboot_objects_isEquipped() : async Bool {
+        return equipped;
     };
 
-
-    // // Equip the boot.
-    // public func equip() {
-    //     // Equip the boot.
-    // };
+    // Equip the boot.
+    // Only the owner can equip the boot.
+    public shared ({ caller }) func reboot_objects_equip() : async () {
+        assert (caller == owner);
+        if (equipped) {
+            return;
+        };
+        equipped := true;
+    };
 
     // // Unequip the boot.
-    // public func unequip() {
-    //     // Unequip the boot.
-    // };
-
-    // public func walk() {
-    //     // Walk.
-    // };
-
-    // Secret key.
-    // Validation of the scan.
+    // Only the owner can unequip the boot.
+    public shared ({ caller }) func reboot_objects_unequip() {
+        assert (caller == owner);
+        if (not equipped) {
+            return;
+        };
+        equipped := false;
+    };
 
     public query func http_request(request : frontend.Request) : async frontend.Response {
-        return 
-           frontend.get_html(request);
+        return frontend.get_html(request);
     };
 };
