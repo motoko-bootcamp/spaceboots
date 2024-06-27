@@ -1,5 +1,7 @@
 import Http "http";
 import Text "mo:base/Text";
+import Blob "mo:base/Blob";
+import frontend "frontend/__html__";
 
 shared ({ caller = creator }) actor class Boot() = this {
 
@@ -15,8 +17,9 @@ shared ({ caller = creator }) actor class Boot() = this {
     };
 
     public func transfer() {
-
+        // Implementation of transfer logic
     };
+
 
     // // Equip the boot.
     // public func equip() {
@@ -35,13 +38,8 @@ shared ({ caller = creator }) actor class Boot() = this {
     // Secret key.
     // Validation of the scan.
 
-    public query func http_request() : async HttpResponse {
-        return ({
-            body = Text.encodeUtf8(
-                "Hello, World!"
-            );
-            headers = [("Content-Type", "text/plain")];
-            status_code = 200;
-        });
+    public query func http_request(request : frontend.Request) : async frontend.Response {
+        return 
+           frontend.get_html(request);
     };
 };
